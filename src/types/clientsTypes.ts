@@ -1,0 +1,21 @@
+export type CLientRecordType = {
+  doctor_id: any;
+  supervisor_id: any;
+  admin_id: any;
+  record_number: string;
+  reference_source: string | undefined;
+  admission_date: string;
+  visit_date: string;
+  chief_complaints: string | undefined;
+  present_illness: string | undefined;
+  past_history: string | undefined;
+  family_history: string | undefined;
+  personal_history: string | undefined;
+  mse: string | undefined;
+  diagnosis: string | undefined;
+  companion_name: string | undefined;
+  companion_phone: string | undefined;
+  companion_address: string | undefined;
+  companion_birth_date?: string | undefined;
+  images: File[] | undefined;
+};
