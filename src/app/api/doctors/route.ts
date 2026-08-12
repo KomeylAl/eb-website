@@ -6,6 +6,7 @@ import {
   proxyJsonResponse,
 } from "@/lib/backend";
 
+/** Public doctor list (e.g. online appointment form). */
 export async function GET(req: NextRequest) {
   try {
     const response = await backendFetch("/doctors", {
@@ -13,24 +14,6 @@ export async function GET(req: NextRequest) {
       query: listQueryFromRequest(req),
     });
     return proxyJsonResponse(response, { normalizeList: true });
-  } catch (error: any) {
-    return NextResponse.json(
-      { message: `Something went wrong: ${error.message}` },
-      { status: 500 }
-    );
-  }
-}
-
-export async function POST(req: NextRequest) {
-  try {
-    const formData = await req.formData();
-    const response = await backendFetch("/doctors", {
-      method: "POST",
-      token: getToken(req),
-      body: formData,
-      isFormData: true,
-    });
-    return proxyJsonResponse(response);
   } catch (error: any) {
     return NextResponse.json(
       { message: `Something went wrong: ${error.message}` },

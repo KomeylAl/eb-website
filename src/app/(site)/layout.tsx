@@ -2,7 +2,7 @@ import Navbar from "@/components/layout/Navbar";
 import "../globals.css";
 import Footer from "@/components/layout/Footer";
 import PageTransitionProvider from "@/components/common/providers/PageTransitionProvider";
-import Providers from "../(dashboard)/admin/providers";
+import QueryProviders from "@/components/common/providers/QueryProviders";
 
 // Public pages must always reflect the latest backend content.
 export const dynamic = "force-dynamic";
@@ -18,9 +18,7 @@ export default function RootLayout({
         <Navbar />
       </div>
       <PageTransitionProvider>
-        <Providers>
-          {children}
-        </Providers>
+        <QueryProviders>{children}</QueryProviders>
       </PageTransitionProvider>
       <Footer />
     </div>

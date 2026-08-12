@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-query";
 import { ReactNode } from "react";
 
-export default function Providers({ children }: { children: ReactNode }) {
+export default function QueryProviders({ children }: { children: ReactNode }) {
   const queryClient = new QueryClient({
     queryCache: new QueryCache({
       onError: (error) => {
