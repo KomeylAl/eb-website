@@ -4,6 +4,9 @@ import Footer from "@/components/layout/Footer";
 import PageTransitionProvider from "@/components/common/providers/PageTransitionProvider";
 import Providers from "../(dashboard)/admin/providers";
 
+// Public pages must always reflect the latest backend content.
+export const dynamic = "force-dynamic";
+
 export default function RootLayout({
   children,
 }: {

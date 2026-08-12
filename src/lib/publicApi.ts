@@ -3,7 +3,11 @@
 const DEFAULT_BASE = "http://localhost:8000";
 
 export function getPublicApiBase(): string {
-  const raw = process.env.NEXT_PUBLIC_BACKEND_API_URL || DEFAULT_BASE;
+  // Prefer public URL; fall back to server-only BACKEND_API_URL (Docker/runtime).
+  const raw =
+    process.env.NEXT_PUBLIC_BACKEND_API_URL ||
+    process.env.BACKEND_API_URL ||
+    DEFAULT_BASE;
   const trimmed = raw.replace(/\/+$/, "");
   if (trimmed.endsWith("/api/v1")) return trimmed;
   if (trimmed.endsWith("/api")) return `${trimmed}/v1`;
@@ -63,8 +67,10 @@ export async function publicGet(
   try {
     const res = await fetch(publicApiUrl(path, query), {
       headers: { Accept: "application/json" },
-      // Allow ISR during build; pages stay fresh enough for public content.
-      next: { revalidate: 60 },
+      // Always fetch fresh data. Time-based ISR (revalidate: N) uses
+      // stale-while-revalidate, which requires 2+ refreshes and can keep
+      // serving cached empty/error payloads after a failed backend call.
+      cache: "no-store",
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {

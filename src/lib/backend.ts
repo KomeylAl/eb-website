@@ -4,7 +4,10 @@ const DEFAULT_BASE = "http://localhost:8000";
 
 /** Base URL for backend API including `/api/v1` (no trailing slash). */
 export function getBackendBaseUrl(): string {
-  const raw = process.env.NEXT_PUBLIC_BACKEND_API_URL || DEFAULT_BASE;
+  const raw =
+    process.env.NEXT_PUBLIC_BACKEND_API_URL ||
+    process.env.BACKEND_API_URL ||
+    DEFAULT_BASE;
   const trimmed = raw.replace(/\/+$/, "");
   if (trimmed.endsWith("/api/v1")) return trimmed;
   if (trimmed.endsWith("/api")) return `${trimmed}/v1`;

@@ -29,7 +29,7 @@ const About = async () => {
           unoptimized
           className="w-32"
         />
-        <div className="w-full flex flex-col xl:flex-row items-center justify-center gap-10 xl:h-[500px]">
+        <div className="w-full flex flex-col xl:flex-row items-center justify-center gap-10 xl:h-125">
           <div className="flex-1 space-y-5">
             <h2 className="text-xl font-semibold">{data.title}</h2>
             <p className="text-justify">{data.about}</p>
@@ -45,8 +45,8 @@ const About = async () => {
               </div>
             </div>
           </div>
-          <div className="w-[1px] h-full bg-gray-200" />
-          <div className="xl:flex-1 w-full h-[400px] overflow-hidden shadow-lg">
+          <div className="w-px h-full bg-gray-200" />
+          <div className="xl:flex-1 w-full h-100 overflow-hidden shadow-lg">
             <MapWrapper
               lat={Number(data.latitude ?? 0)}
               long={Number(data.longitude ?? 0)}

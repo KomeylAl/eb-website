@@ -11,6 +11,11 @@ RUN npm ci
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# Avoid baking local .env into the production client bundle.
+RUN rm -f .env .env.local .env.development || true
+ARG NEXT_PUBLIC_BACKEND_API_URL=https://api.ebrazclinic.ir/
+ENV NEXT_PUBLIC_BACKEND_API_URL=$NEXT_PUBLIC_BACKEND_API_URL
+ENV BACKEND_API_URL=$NEXT_PUBLIC_BACKEND_API_URL
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
@@ -20,6 +25,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 ENV BACKEND_API_URL=https://api.ebrazclinic.ir/
+ENV NEXT_PUBLIC_BACKEND_API_URL=https://api.ebrazclinic.ir/
 
 RUN addgroup --system --gid 1001 nodejs \
   && adduser --system --uid 1001 nextjs
