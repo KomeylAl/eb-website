@@ -1,4 +1,5 @@
 import Header from "@/components/layout/Header";
+import CommentSection from "@/components/layout/CommentSection";
 import { publicGet } from "@/lib/publicApi";
 import Image from "next/image";
 import Link from "next/link";
@@ -61,6 +62,14 @@ const PostPage = async ({ params }: PostPageProps) => {
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
         </div>
+        <CommentSection
+          commentableType="post"
+          commentableId={post.id}
+          initialComments={post.comments ?? []}
+          commentsCount={post.comments_count}
+          ratingAvg={post.rating_avg}
+          title="نظرات درباره این مقاله"
+        />
       </div>
     </div>
   );

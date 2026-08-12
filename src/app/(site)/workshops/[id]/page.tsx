@@ -1,4 +1,5 @@
 import Header from "@/components/layout/Header";
+import CommentSection from "@/components/layout/CommentSection";
 import RegisterButton from "@/components/layout/RegisterButton";
 import { publicGet } from "@/lib/publicApi";
 import { dateConvert } from "@/lib/utils";
@@ -70,6 +71,14 @@ const Workshop = async ({ params }: WorkshopPageProps) => {
             dangerouslySetInnerHTML={{ __html: workshop.content }}
           />
         </div>
+        <CommentSection
+          commentableType="workshop"
+          commentableId={workshop.id}
+          initialComments={workshop.comments ?? []}
+          commentsCount={workshop.comments_count}
+          ratingAvg={workshop.rating_avg}
+          title="نظرات شرکت‌کنندگان"
+        />
       </div>
     </div>
   );

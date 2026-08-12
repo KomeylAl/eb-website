@@ -16,6 +16,7 @@ import Script from "next/script";
 import { Metadata } from "next";
 import Link from "next/link";
 import { publicGet } from "@/lib/publicApi";
+import CommentSection from "@/components/layout/CommentSection";
 
 interface DoctorProfileProps {
   params: {
@@ -245,6 +246,15 @@ const DoctorProfile = async ({ params }: DoctorProfileProps) => {
               ))}
             </ul>
           </section>
+
+          <CommentSection
+            commentableType="doctor"
+            commentableId={doctor.id}
+            initialComments={doctor.comments ?? []}
+            commentsCount={doctor.comments_count}
+            ratingAvg={doctor.rating_avg}
+            title="نظرات مراجعین درباره این درمانگر"
+          />
         </div>
       </div>
     </div>

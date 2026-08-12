@@ -92,6 +92,32 @@ export const doctorSchema = yup.object().shape({
   resume: yup.mixed().nullable(),
 });
 
+export const commentSchema = yup.object().shape({
+  first_name: yup
+    .string()
+    .required("نام الزامی است")
+    .max(255, "نام نمی‌تواند بیشتر از ۲۵۵ کاراکتر باشد"),
+  last_name: yup
+    .string()
+    .required("نام خانوادگی الزامی است")
+    .max(255, "نام خانوادگی نمی‌تواند بیشتر از ۲۵۵ کاراکتر باشد"),
+  phone: yup
+    .string()
+    .required("شماره موبایل الزامی است")
+    .max(20, "شماره موبایل نمی‌تواند بیشتر از ۲۰ کاراکتر باشد")
+    .matches(/^09\d{9}$/, "شماره موبایل معتبر نیست (مثال: 09121234567)"),
+  body: yup
+    .string()
+    .required("متن نظر الزامی است")
+    .min(10, "متن نظر باید حداقل ۱۰ کاراکتر باشد"),
+  rating: yup
+    .number()
+    .typeError("امتیاز الزامی است")
+    .required("امتیاز الزامی است")
+    .min(1, "حداقل امتیاز ۱ است")
+    .max(5, "حداکثر امتیاز ۵ است"),
+});
+
 export {
   adminSchema,
   assessmentSchema

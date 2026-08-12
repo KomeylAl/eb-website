@@ -133,3 +133,16 @@ export function convertNotifType(type: string) {
   }
   return output;
 }
+
+export function convertCommentableType(type: string) {
+  switch (type) {
+    case "doctor":
+      return "درمانگر";
+    case "post":
+      return "مقاله";
+    case "workshop":
+      return "کارگاه";
+    default:
+      return type;
+  }
+}

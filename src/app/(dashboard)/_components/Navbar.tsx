@@ -11,7 +11,7 @@ import { useUser } from "@/context/UserContext";
 import { TbCategory2 } from "react-icons/tb";
 import { IoPricetagOutline } from "react-icons/io5";
 import TransitionLink from "@/components/ui/TransitionLink";
-import { Bell, CalendarCheck, CalendarFold, CreditCard, LayoutDashboard, List, Mail, PersonStanding, Settings, TestTube, UserRound, Users } from "lucide-react";
+import { Bell, CalendarCheck, CalendarFold, CreditCard, LayoutDashboard, List, Mail, MessageSquareText, PersonStanding, Settings, TestTube, UserRound, Users } from "lucide-react";
 
 const Navbar = () => {
   const links = [
@@ -38,6 +38,12 @@ const Navbar = () => {
       link: "/admin/assessments",
       access: ["manager", "boss"],
       icon: <CalendarFold />,
+    },
+    {
+      title: "نظرات",
+      link: "/admin/comments",
+      access: ["manager", "boss"],
+      icon: <MessageSquareText />,
     },
     {
       title: "مراجعان",

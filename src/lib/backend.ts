@@ -185,6 +185,10 @@ export function listQueryFromRequest(req: NextRequest): Record<string, string> {
     "priority",
     "from_date",
     "to_date",
+    "commentable_type",
+    "commentable_id",
+    "approved",
+    "phone",
   ];
 
   for (const key of passthrough) {
