@@ -7,9 +7,11 @@ import { publicGet } from "@/lib/publicApi";
 
 const WorkshopsList = ({
   initialData,
+  type = "",
 }: {
   initialData: any;
   initialSearch: string;
+  type?: string;
 }) => {
   const [workshops, setWorkshops] = useState(initialData.data || []);
   const [page, setPage] = useState(initialData.meta?.current_page ?? 1);
@@ -27,7 +29,10 @@ const WorkshopsList = ({
     setLoading(true);
     try {
       const nextPage = page + 1;
-      const data = await publicGet("/workshops", { page: nextPage });
+      const data = await publicGet("/workshops", {
+        page: nextPage,
+        ...(type ? { type } : {}),
+      });
       setWorkshops((prev: any[]) => [...prev, ...(data.data || [])]);
       setPage(data.meta.current_page);
       setLastPage(data.meta.last_page);
@@ -53,6 +58,10 @@ const WorkshopsList = ({
           />
         ))}
       </div>
+
+      {workshops.length === 0 && (
+        <p className="text-muted-foreground text-sm">موردی یافت نشد.</p>
+      )}
 
       {page < lastPage && (
         <button

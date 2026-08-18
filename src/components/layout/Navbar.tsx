@@ -56,12 +56,14 @@ const megaMenuData: any = {
     ],
   },
   workshops: {
-    title: "کارگاه‌ها",
-    desc: "کارگاه‌های عمومی تخصصی روانشناسی با مدرسین برجسته.",
+    title: "کارگاه‌ها و رویدادها",
+    desc: "کارگاه، وبینار و سمینارهای مرکز ابراز با مدرسین برجسته.",
     image: workshop,
     links: [
       { label: "کارگاه‌های عمومی", href: "/workshops?type=general" },
-      { label: "کارگاه‌های تخصصی", href: "/workshops?type=special" },
+      { label: "کارگاه‌های تخصصی", href: "/workshops?type=specialized" },
+      { label: "وبینارها", href: "/workshops?type=webinar" },
+      { label: "سمینارها", href: "/workshops?type=seminar" },
     ],
   },
   posts: {
@@ -84,7 +86,7 @@ const items = [
     dataKey: "appointment",
   },
   { title: "چارت سازمانی", link: null, mega: true, dataKey: "departments" },
-  { title: "کارگاه ها", link: "workshops", mega: true, dataKey: "workshops" },
+  { title: "کارگاه‌ها و رویدادها", link: "workshops", mega: true, dataKey: "workshops" },
   { title: "مجله ابراز", link: "posts", mega: true, dataKey: "posts" },
   { title: "متخصصان", link: "/psychologists" },
   { title: "درباره ابراز", link: "/about" },
