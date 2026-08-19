@@ -42,6 +42,8 @@ export type WorkshopType = {
   image_url: string | null;
   /** @deprecated use image_url */
   img_path?: string | null;
+  registration_open?: boolean;
+  registration_available?: boolean;
   sessions?: WorkshopSessionType[];
   participants?: WorkshopParticipantType[];
 };

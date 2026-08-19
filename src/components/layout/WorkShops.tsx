@@ -52,6 +52,7 @@ const WorkShops = async () => {
                     id={item.id}
                     organizers={item.organizers || ""}
                     endDate={item.end_date || ""}
+                    registrationAvailable={(item as any).registration_available}
                   />
                 </CarouselItem>
               ))}

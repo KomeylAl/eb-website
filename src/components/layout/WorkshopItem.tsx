@@ -16,6 +16,7 @@ interface WorkshopItemProps {
   id: string;
   day: string;
   endDate: string;
+  registrationAvailable?: boolean;
 }
 
 const WorkshopItem = ({
@@ -25,10 +26,17 @@ const WorkshopItem = ({
   id,
   day,
   endDate,
+  registrationAvailable,
 }: WorkshopItemProps) => {
   const { isOpen, openModal, closeModal } = useModal();
-  const date = new Date(endDate);
+  const date = endDate ? new Date(endDate) : null;
   const now = new Date();
+  const ended = date ? date < now : false;
+  const canRegister =
+    typeof registrationAvailable === "boolean"
+      ? registrationAvailable
+      : !ended;
+
   return (
     <div className="w-80 h-96 group rounded-md space-y-3 relative shadow-lg overflow-hidden">
       <Image
@@ -42,29 +50,31 @@ const WorkshopItem = ({
       <div className="w-full h-full bg-linear-to-t from-black to-transparent flex flex-col items-start justify-end space-y-3 p-4 relative">
         <div
           className={`absolute w-48 h-10 ${
-            date < now
+            ended
               ? "bg-primary text-shelfish"
               : "bg-beige/80 backdrop-blur-sm text-zinc-900"
           } top-5 -right-15 rotate-45 flex items-center justify-center`}
         >
-          {date < now ? "برگزار شده" : "در حال برگزاری"}
+          {ended ? "برگزار شده" : "در حال برگزاری"}
         </div>
         <p className="text-lg font-semibold text-white hover:text-beige">
           <Link href={`/workshops/${id}`}>{title}</Link>
         </p>
         <p className="text-sm text-white text-right">{organizers}</p>
         <p className="text-sm text-white text-right">{day}</p>
-        {date < now ? (
-          <div className="w-full px-4 py-2 rounded-md border border-beige text-beige text-center hover:bg-beige hover:text-black transition duration-300">
-            زمان ثبت نام این کارگاه به پایان رسیده است.
-          </div>
-        ) : (
+        {canRegister ? (
           <button
             onClick={openModal}
             className="w-full px-4 py-2 rounded-md border border-beige text-beige cursor-pointer hover:bg-beige hover:text-black transition duration-300"
           >
             درخواست ثبت نام
           </button>
+        ) : (
+          <div className="w-full px-4 py-2 rounded-md border border-beige text-beige text-center hover:bg-beige hover:text-black transition duration-300">
+            {ended
+              ? "زمان ثبت نام این کارگاه به پایان رسیده است."
+              : "ثبت‌نام این کارگاه بسته شده است."}
+          </div>
         )}
         <TransitionLink
           href={`/workshops/${id}`}

@@ -55,6 +55,7 @@ const WorkshopsList = ({
             id={item.id}
             day={item.week_day}
             endDate={item.end_date}
+            registrationAvailable={item.registration_available}
           />
         ))}
       </div>

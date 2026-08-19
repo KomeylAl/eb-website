@@ -16,8 +16,13 @@ const Workshop = async ({ params }: WorkshopPageProps) => {
   const { id } = await params;
   const payload = await publicGet(`/workshops/${id}`);
   const workshop = payload?.data;
-  const date = new Date(workshop.end_date);
+  const date = workshop?.end_date ? new Date(workshop.end_date) : null;
   const now = new Date();
+  const ended = date ? date < now : false;
+  const canRegister =
+    typeof workshop?.registration_available === "boolean"
+      ? workshop.registration_available
+      : !ended;
 
   return (
     <div>
@@ -31,12 +36,12 @@ const Workshop = async ({ params }: WorkshopPageProps) => {
           <div className="w-96 h-96 relative overflow-hidden">
             <div
               className={`absolute w-48 h-10 ${
-                date < now
+                ended
                   ? "bg-primary text-shelfish"
                   : "bg-beige/80 backdrop-blur-sm text-zinc-900"
               } top-5 -right-15 rotate-45 flex items-center justify-center`}
             >
-              {date < now ? "برگزار شده" : "در حال برگزاری"}
+              {ended ? "برگزار شده" : "در حال برگزاری"}
             </div>
             <Image
               src={workshop.image_url || workshop.img_path}
@@ -55,12 +60,14 @@ const Workshop = async ({ params }: WorkshopPageProps) => {
               <p>تاریخ شروع: {dateConvert(workshop.start_date)}</p>
               <p>تاریخ پایان: {dateConvert(workshop.end_date)}</p>
               <p>زمان برگزاری: {workshop.time}</p>
-              {date < now ? (
-                <div className="w-full px-4 py-2 rounded-md border border-primary text-primary flex items-center justify-center hover:bg-beige hover:text-black transition duration-300">
-                  زمان ثبت نام این کارگاه به پایان رسیده است.
-                </div>
-              ) : (
+              {canRegister ? (
                 <RegisterButton id={id} />
+              ) : (
+                <div className="w-full px-4 py-2 rounded-md border border-primary text-primary flex items-center justify-center hover:bg-beige hover:text-black transition duration-300">
+                  {ended
+                    ? "زمان ثبت نام این کارگاه به پایان رسیده است."
+                    : "ثبت‌نام این کارگاه بسته شده است."}
+                </div>
               )}
             </div>
           </div>
