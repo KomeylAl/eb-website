@@ -1,54 +1,74 @@
-import React from "react";
-import CommentItem from "./CommentItem";
-import Link from "next/link";
+import { Quote } from "lucide-react";
+import SectionHeading from "./SectionHeading";
 
 const items = [
   {
     name: "مسلم زراعتکار",
     comment:
-      "سلام و درود بسیار از کلینیک شما سپاسگزارم و به دوستان با اطمینان کامل پیشنهاد میکنم به کلینیک شما مراجعه کنند.",
+      "سلام و درود بسیار از کلینیک شما سپاسگزارم و به دوستان با اطمینان کامل پیشنهاد می‌کنم به کلینیک شما مراجعه کنند.",
   },
   {
-    name: "Maryam",
+    name: "مریم",
     comment:
-      "میشه گفت متفاوت ترین کلینیک. وقتی توی این کلینیک تجربه درمان داشته باشی تازه میفهمی چقدر تجربه تراپی میتونه خاص و موثر باشه.",
+      "می‌شود گفت متفاوت‌ترین کلینیک. وقتی توی این کلینیک تجربه درمان داشته باشی تازه می‌فهمی چقدر تجربه تراپی می‌تواند خاص و موثر باشد.",
   },
   {
-    name: "nazanin farkhani",
+    name: "نازنین فرخانی",
     comment:
-      "یکی از بهترین مراکز روانشناختی که به شدت روی روان‌درمانگرانشون حساس هستند. میشه به جرات گفت این کلینیک داره در سطح استانداردهای جهانی کار میکنه که خوب با وجود دکتر علی محرابی به عنوان موسس چیز دور از ذهنی نیست. پرسنل دلسوز و مدیریت عالی کلینیک هم اگر تعریفی بشه ازشون حق مطلب ادا نمیشه باید رفت و تجربه کرد",
+      "یکی از بهترین مراکز روانشناختی که به شدت روی روان‌درمانگرانشان حساس هستند. می‌شود به جرات گفت این کلینیک در سطح استانداردهای جهانی کار می‌کند.",
   },
 ];
 
-function previewText(text: string, maxLength = 100) {
-  if (text.length > maxLength) {
-    return text.slice(0, maxLength) + "...";
-  }
-  return text;
-}
+const GOOGLE_REVIEWS_URL =
+  "https://www.google.com/search?q=%DA%A9%D9%84%DB%8C%D9%86%DB%8C%DA%A9+%D8%AA%D8%AE%D8%B5%D8%B5%DB%8C+%D9%85%D8%B4%D8%A7%D9%88%D8%B1%D9%87+%D9%88+%D8%B1%D9%88%D8%A7%D9%86%D8%AF%D8%B1%D9%85%D8%A7%D9%86%DB%8C+%D8%A7%D8%A8%D8%B1%D8%A7%D8%B2";
 
 const Comments = () => {
   return (
-    <div className="w-full px-5 md:px-24 lg:px-48 py-12 space-y-6 text-center mt-10">
-      <h2 className="text-3xl font-semibold">نظرات مراجعین</h2>
-      <p className="text-xl">نظرات برخی از مراجعین کلینیک ابراز</p>
-      <Link
-        href="https://www.google.com/search?sca_esv=bff55ff221f7a59a&rlz=1C1GCEA_enIR1014IR1014&sxsrf=AE3TifPp87hi14PsBVB6gt88jMpUklQdsQ:1753514330390&uds=AOm0WdE2fekQnsyfYEw8JPYozOKz9yncncpwQCf_a89vUAKSzn8hWcn0wSGg6ETcp5_4lCFnEbT4Wxbkc0KY2TNpbjLlkqpelP5lw69SuX6dATEv8sHp5Px4UT71jiNDUZVquOKdk797MnOj3SW66u4OQN64UW6WVheC-gTlfNX-Ld7pUvRnMigCiN3Cfuplgv3N5vkjDEr54EAfYxcUoppeAjCZ8T_OyQ&q=%DA%A9%D9%84%DB%8C%D9%86%DB%8C%DA%A9+%D8%AA%D8%AE%D8%B5%D8%B5%DB%8C+%D9%85%D8%B4%D8%A7%D9%88%D8%B1%D9%87+%D9%88+%D8%B1%D9%88%D8%A7%D9%86%D8%AF%D8%B1%D9%85%D8%A7%D9%86%DB%8C+%D8%A7%D8%A8%D8%B1%D8%A7%D8%B2+%D9%86%D8%B8%D8%B1%D8%A7%D8%AA&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E88UqeJemLb5XyAVTGKxA4X7F1Xw9mkhuj9XookbafVSxjjxBQ3-qSbUGizt3ZapudusuB4zKQXLJSsAKCSvqTvxoEwfadZpc8DtZecgXqP7Mk7wDSuIvRiOSvJKCSxL_iEWjpAxxiRRWPt448MaZnd8D3mtfZLiHjW9VKLj8pbE1b14aA%3D%3D&hl=fa-IT&sa=X&ved=2ahUKEwjR1ZX2_dmOAxVOiv0HHUnZBzMQ_4MLegQIRxAN&biw=1724&bih=826&dpr=1"
-        className="text-blue-500"
-        target="_blanck"
-      >
-        مرور های گوگل
-      </Link>
-      <div className="w-full flex flex-wrap items-center justify-center gap-5 mt-5">
-        {items.map((items: any, index: any) => (
-          <CommentItem
-            key={index}
-            name={items.name}
-            comment={previewText(items.comment, 130)}
-          />
-        ))}
+    <section className="relative w-full overflow-hidden bg-gradient-to-b from-white via-niceblue-100/35 to-white px-5 py-20 sm:px-8 md:px-16 lg:px-24 xl:px-32">
+      <div className="pointer-events-none absolute bottom-0 right-0 h-72 w-72 rounded-full bg-beige/30 blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl space-y-12">
+        <SectionHeading
+          eyebrow="اعتماد مراجعین"
+          title="آنچه مراجعین می‌گویند"
+          description="تجربه واقعی کسانی که مسیر درمان را در کلینیک ابراز طی کرده‌اند."
+        />
+
+        <div className="flex justify-center">
+          <a
+            href={GOOGLE_REVIEWS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-[#2daa9e] underline-offset-4 hover:underline"
+          >
+            مشاهده نظرات در گوگل
+          </a>
+        </div>
+
+        <div className="grid gap-5 md:grid-cols-3">
+          {items.map((item) => (
+            <figure
+              key={item.name}
+              className="relative overflow-hidden rounded-2xl border border-gray-200/80 bg-white/90 p-6 text-right shadow-[0_20px_50px_-35px_rgba(0,0,0,0.35)]"
+            >
+              <Quote className="mb-4 size-8 text-beige" strokeWidth={1.5} />
+              <blockquote className="text-sm leading-7 text-gray-700 sm:text-base">
+                {item.comment}
+              </blockquote>
+              <figcaption className="mt-6 flex items-center gap-3 border-t border-gray-100 pt-4">
+                <span className="flex size-10 items-center justify-center rounded-full bg-niceblue-200 text-sm font-semibold text-niceblue-primary">
+                  {item.name.slice(0, 1)}
+                </span>
+                <div>
+                  <p className="font-semibold text-gray-900">{item.name}</p>
+                  <p className="text-xs text-gray-500">مراجع کلینیک ابراز</p>
+                </div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

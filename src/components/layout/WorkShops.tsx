@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Carousel,
   CarouselContent,
@@ -9,6 +8,8 @@ import {
 import WorkshopItem from "./WorkshopItem";
 import { WorkshopType } from "@/lib/types";
 import { publicGet } from "@/lib/publicApi";
+import SectionHeading from "./SectionHeading";
+import TransitionLink from "@/components/ui/TransitionLink";
 
 const WorkShops = async () => {
   let workshops: WorkshopType[] = [];
@@ -23,46 +24,63 @@ const WorkShops = async () => {
   }
 
   return (
-    <div className="w-full h-[630px] mt-10 workshop">
-      <div className="w-full h-full px-5 md:px-24 lg:px-32 py-12 space-y-6 text-center bg-black/80 text-white">
-        <h2 className="text-3xl font-semibold">کلاس ها و کارگاه ها</h2>
-        <p className="text-xl">لیست کلاس ها و کارگاهی های جاری در مرکز ابراز</p>
+    <section className="workshop relative w-full overflow-hidden">
+      <div className="absolute inset-0 bg-black/80" />
+      <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-8 md:px-12 lg:px-16">
+        <SectionHeading
+          tone="dark"
+          eyebrow="یادگیری و تجربه گروهی"
+          title="کلاس‌ها و کارگاه‌ها"
+          description="کارگاه‌های تخصصی و عمومی برای رشد مهارت‌های فردی و حرفه‌ای، با مدرسین مجرب مرکز ابراز."
+          actionHref="/workshops"
+          actionLabel="همه کارگاه‌ها"
+        />
 
-        {workshops.length === 0 && <p>هنوز کارگاهی اضافه نشده است!</p>}
+        <div className="mt-12">
+          {workshops.length === 0 ? (
+            <p className="text-center text-white/70">هنوز کارگاهی اضافه نشده است.</p>
+          ) : (
+            <Carousel
+              opts={{
+                align: "start",
+                axis: "x",
+                direction: "rtl",
+              }}
+            >
+              <CarouselContent className="text-black">
+                {workshops.map((item) => (
+                  <CarouselItem
+                    className="basis-[85%] sm:basis-1/2 xl:basis-1/3 2xl:basis-1/4"
+                    key={item.id}
+                  >
+                    <WorkshopItem
+                      title={item.title}
+                      image={item.image_url || item.img_path || ""}
+                      day={item.week_day || ""}
+                      id={item.id}
+                      organizers={item.organizers || ""}
+                      endDate={item.end_date || ""}
+                      registrationAvailable={(item as any).registration_available}
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselNext className="hidden border-white/20 bg-white/90 text-black md:flex" />
+              <CarouselPrevious className="hidden border-white/20 bg-white/90 text-black md:flex" />
+            </Carousel>
+          )}
+        </div>
 
-        {workshops.length !== 0 && (
-          <Carousel
-            className="mt-16"
-            opts={{
-              align: "end",
-              axis: "x",
-              direction: "rtl",
-            }}
+        <div className="mt-10 flex justify-center md:hidden">
+          <TransitionLink
+            href="/workshops"
+            className="rounded-md border border-beige px-5 py-2.5 text-sm text-beige"
           >
-            <CarouselContent className="text-black">
-              {workshops.map((item) => (
-                <CarouselItem
-                  className="lg:basis-1/2 xl:basis-1/4"
-                  key={item.id}
-                >
-                  <WorkshopItem
-                    title={item.title}
-                    image={item.image_url || item.img_path || ""}
-                    day={item.week_day || ""}
-                    id={item.id}
-                    organizers={item.organizers || ""}
-                    endDate={item.end_date || ""}
-                    registrationAvailable={(item as any).registration_available}
-                  />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselNext className="text-black hidden md:block" />
-            <CarouselPrevious className="text-black hidden md:block" />
-          </Carousel>
-        )}
+            مشاهده همه کارگاه‌ها
+          </TransitionLink>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

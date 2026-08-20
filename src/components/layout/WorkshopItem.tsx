@@ -38,7 +38,7 @@ const WorkshopItem = ({
       : !ended;
 
   return (
-    <div className="w-80 h-96 group rounded-md space-y-3 relative shadow-lg overflow-hidden">
+    <div className="h-96 w-full overflow-hidden rounded-2xl group relative shadow-xl shadow-black/25">
       <Image
         src={image || imagee}
         alt=""

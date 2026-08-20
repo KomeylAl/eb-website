@@ -1,41 +1,74 @@
-import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { publicGet } from "@/lib/publicApi";
+import TransitionLink from "@/components/ui/TransitionLink";
+import SectionHeading from "./SectionHeading";
 
 const Departments = async () => {
   let departments: any[] = [];
   try {
     const payload = await publicGet("/departments");
     departments = payload?.data || [];
-  } catch (e: any) {
-    console.log(e);
+  } catch {
+    departments = [];
   }
 
   return (
-    <div
-      className="w-full px-5 md:px-24 lg:px-48 py-12 space-y-6 text-center"
+    <section
       id="departments"
+      className="relative w-full overflow-hidden bg-gradient-to-b from-niceblue-100/40 via-white to-white px-5 py-20 sm:px-8 md:px-16 lg:px-24 xl:px-32"
     >
-      <h2 className="text-3xl font-semibold">دپارتمان های کلینیک ابراز</h2>
-      <p className="text-xl">
-        دپارتمان های تخصصی مرکز مشاوره و رواندرمانی ابراز
-      </p>
-      <div className="flex flex-wrap items-center justify-center gap-4">
-        {departments.length === 0 && <p>در حال بارگزاری اطلاعات...</p>}
-        {departments.map((d: any) => (
-          <Link key={d.id} href={`/departments/${d.slug}`}>
-            <Image
-              src={d.thumbnail_url || d.thumbnail}
-              width={600}
-              height={300}
-              alt={d.title}
-              className="object-cover w-80 saturate-0 hover:saturate-100 transition-all duration-500"
-            />
-          </Link>
-        ))}
+      <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[42rem] -translate-x-1/2 rounded-full bg-[#2daa9e]/10 blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl space-y-12">
+        <SectionHeading
+          eyebrow="مسیر تخصصی درمان"
+          title="دپارتمان‌های کلینیک ابراز"
+          description="هر دپارتمان با تمرکز روی یک حوزه تخصصی، مسیر درمان را دقیق‌تر و موثرتر می‌کند."
+        />
+
+        {departments.length === 0 ? (
+          <p className="text-center text-gray-500">در حال بارگذاری اطلاعات...</p>
+        ) : (
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            {departments.map((d: any, index: number) => (
+              <TransitionLink
+                key={d.id}
+                href={`/departments/${d.slug}`}
+                className="group relative block overflow-hidden rounded-2xl bg-gray-900 shadow-lg shadow-black/10"
+              >
+                <div className="relative aspect-[16/11] overflow-hidden">
+                  <Image
+                    src={d.thumbnail_url || d.thumbnail || "/images/hero2.webp"}
+                    alt={d.title}
+                    fill
+                    unoptimized
+                    className="object-cover saturate-[0.35] transition duration-700 group-hover:scale-105 group-hover:saturate-100"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-5 text-right">
+                    <p className="mb-1 text-xs text-beige/80">
+                      {String(index + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="text-lg font-semibold text-white sm:text-xl">
+                      {d.title}
+                    </h3>
+                    {d.excerpt && (
+                      <p className="mt-2 line-clamp-2 text-sm leading-6 text-white/70">
+                        {d.excerpt}
+                      </p>
+                    )}
+                    <span className="mt-4 inline-flex text-sm text-beige transition group-hover:translate-x-[-4px]">
+                      مشاهده دپارتمان ←
+                    </span>
+                  </div>
+                </div>
+              </TransitionLink>
+            ))}
+          </div>
+        )}
       </div>
-    </div>
+    </section>
   );
 };
 

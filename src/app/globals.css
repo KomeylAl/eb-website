@@ -193,3 +193,100 @@ footer {
 .calendar {
   z-index: 0 !important;
 }
+
+/* Hero CTA shimmer — beige border glow every few seconds */
+@keyframes btn-shimmer-sweep {
+  0%,
+  62% {
+    transform: translateX(-140%) skewX(-18deg);
+    opacity: 0;
+  }
+  68% {
+    opacity: 1;
+  }
+  88% {
+    transform: translateX(140%) skewX(-18deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(140%) skewX(-18deg);
+    opacity: 0;
+  }
+}
+
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn-shimmer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    color-mix(in srgb, var(--color-beige) 55%, transparent) 48%,
+    color-mix(in srgb, white 70%, var(--color-beige)) 50%,
+    color-mix(in srgb, var(--color-beige) 55%, transparent) 52%,
+    transparent 70%
+  );
+  animation: btn-shimmer-sweep 5.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.btn-shimmer > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Periodic beige shimmer for hero / outline CTAs */
+@keyframes beige-shimmer-sweep {
+  0%,
+  68% {
+    transform: translateX(-140%);
+    opacity: 0;
+  }
+  72% {
+    opacity: 1;
+  }
+  92% {
+    transform: translateX(140%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(140%);
+    opacity: 0;
+  }
+}
+
+.btn-beige-shimmer {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn-beige-shimmer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 45%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgb(227 210 195 / 0.15) 35%,
+    rgb(227 210 195 / 0.7) 50%,
+    rgb(227 210 195 / 0.15) 65%,
+    transparent 100%
+  );
+  animation: beige-shimmer-sweep 4.8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.btn-beige-shimmer > * {
+  position: relative;
+  z-index: 2;
+}

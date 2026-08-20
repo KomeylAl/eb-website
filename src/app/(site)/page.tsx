@@ -2,6 +2,9 @@ import BlogPosts from "@/components/layout/BlogPosts";
 import Comments from "@/components/layout/Comments";
 import Departments from "@/components/layout/Departments";
 import Hero from "@/components/layout/Hero";
+import HomeCtaBand from "@/components/layout/HomeCtaBand";
+import HomeServices from "@/components/layout/HomeServices";
+import PsychologistsPreview from "@/components/layout/PsychologistsPreview";
 import WorkShops from "@/components/layout/WorkShops";
 import { Metadata } from "next";
 
@@ -13,14 +16,15 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="">
-      <div className="w-full">
-        <Hero />
-        <Departments />
-        <BlogPosts />
-        <WorkShops />
-        <Comments />
-      </div>
+    <main className="bg-white">
+      <Hero />
+      <HomeServices />
+      <Departments />
+      <PsychologistsPreview />
+      <BlogPosts />
+      <WorkShops />
+      <Comments />
+      <HomeCtaBand />
     </main>
   );
 }
